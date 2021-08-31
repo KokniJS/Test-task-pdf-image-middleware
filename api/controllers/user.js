@@ -55,7 +55,7 @@ exports.findById = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.error("User.email", err);
+      console.error("User.user", err);
       return res.sendStatus(400);
     });
 };
@@ -63,16 +63,10 @@ exports.findById = async (req, res) => {
 exports.findAllUser = async (req, res) => {
   await User.findAll()
     .then((data) => {
-      if (data) {
-        res.json(data);
-      } else {
-        res.send({
-          message: "Username doesn't exist!",
-        });
-      }
+      res.json(data);
     })
     .catch((err) => {
-      console.error("User.email", err);
+      console.error("User.user", err);
       return res.sendStatus(400);
     });
 };
@@ -101,7 +95,6 @@ exports.update = async (req, res) => {
       where: { id: id },
     })
       .then((data) => {
-        console.log(data);
         res.status(200).send({
           message: "User has been update",
         });
@@ -120,7 +113,6 @@ exports.delete = async (req, res) => {
     if (!data) {
       return res.send("User not found");
     } else {
-      console.log(data.image);
       const filePath = data.image;
       fs.unlinkSync(filePath);
     }

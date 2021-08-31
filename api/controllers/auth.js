@@ -37,7 +37,7 @@ exports.findUserJWT = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.error("User.login", err);
+      console.error("User.user", err);
       return res.sendStatus(400);
     });
 };
