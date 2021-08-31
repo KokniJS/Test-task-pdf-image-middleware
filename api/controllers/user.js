@@ -41,10 +41,27 @@ exports.create = async (req, res) => {
     });
 };
 
-exports.findByEmail = async (req, res) => {
-  const { email } = req.body;
+exports.findById = async (req, res) => {
+  const id = req.body.id;
 
-  await User.findOne({ where: { email: email } })
+  await User.findOne({ where: { id: id } })
+    .then((data) => {
+      if (data) {
+        res.json(data);
+      } else {
+        res.send({
+          message: "Username doesn't exist!",
+        });
+      }
+    })
+    .catch((err) => {
+      console.error("User.email", err);
+      return res.sendStatus(400);
+    });
+};
+
+exports.findAllUser = async (req, res) => {
+  await User.findAll()
     .then((data) => {
       if (data) {
         res.json(data);
